@@ -1,47 +1,61 @@
 import '../../App.css';
+import Dropdown from 'react-dropdown';
+import 'react-dropdown/style.css';
+import cleanData from '../../helper/dataHelper';
+import data from '../../config/data';
+
 export default function EmployeeForm() {
+  console.log(data);
+  const optionsStates = cleanData(data.states);
+  console.log(optionsStates);
+  const optionsDepartments = cleanData(data.departments);
+  // const defaultOption = options[0];
+  const _onSelect = (data) => {
+    console.log(data);
+  };
+
   return (
     <div>
-      <div class="title">
+      <div className="title">
         <h1>HRnet</h1>
       </div>
 
-      <div class="container">
+      <div className="container">
         <form action="#" id="create-employee">
-          <label for="first-name">First Name</label>
+          <label htmlFor="first-name">First Name</label>
           <input type="text" id="first-name" />
-          <label for="last-name">Last Name</label>
+          <label htmlFor="last-name">Last Name</label>
           <input type="text" id="last-name" />
-          <label for="date-of-birth">Date of Birth</label>
+          <label htmlFor="date-of-birth">Date of Birth</label>
           <input id="date-of-birth" type="text"></input>
-          <label for="start-date">Start Date</label>
+          <label htmlFor="start-date">Start Date</label>
           <input id="start-date" type="text"></input>
-          <fieldset class="address">
+          <fieldset className="address">
             <legend>Address</legend>
-
-            <label for="street">Street</label>
+            <label htmlFor="street">Street</label>
             <input id="street" type="text" />
-
-            <label for="city">City</label>
+            <label htmlFor="city">City</label>
             <input id="city" type="text" />
-
-            <label for="state">State</label>
-            <select name="state" id="state"></select>
-
-            <label for="zip-code">Zip Code</label>
+            <label htmlFor="state">State</label>
+            <Dropdown
+              options={optionsStates}
+              onChange={_onSelect}
+              value={optionsStates[0]}
+              placeholder="Select an option"
+            />
+            <label htmlFor="zip-code">Zip Code</label>
             <input id="zip-code" type="number" />
           </fieldset>
-          <label for="department">Department</label>
-          <select name="department" id="department">
-            <option>Sales</option>
-            <option>Marketing</option>
-            <option>Engineering</option>
-            <option>Human Resources</option>
-            <option>Legal</option>
-          </select>
+          <label htmlFor="department">Department</label>
+          <Dropdown
+            options={optionsDepartments}
+            onChange={_onSelect}
+            value={optionsDepartments[0]}
+            placeholder="Select an option"
+          />
         </form>
-        <button onclick="saveEmployee()">Save</button>
-        <div id="confirmation" class="modal">
+        <button>Save</button>
+        <div id="confirmation" className="modal">
           Employee Created!
         </div>
       </div>
