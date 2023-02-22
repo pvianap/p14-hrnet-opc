@@ -3,6 +3,7 @@ import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
 import cleanData from '../../helper/dataHelper';
 import data from '../../config/data';
+import DataPicker from '../../components/datePicker';
 
 export default function EmployeeForm() {
   console.log(data);
@@ -19,7 +20,6 @@ export default function EmployeeForm() {
       <div className="title">
         <h1>HRnet</h1>
       </div>
-
       <div className="container">
         <form action="#" id="create-employee">
           <label htmlFor="first-name">First Name</label>
@@ -27,9 +27,9 @@ export default function EmployeeForm() {
           <label htmlFor="last-name">Last Name</label>
           <input type="text" id="last-name" />
           <label htmlFor="date-of-birth">Date of Birth</label>
-          <input id="date-of-birth" type="text"></input>
+          <DataPicker id="date-of-birth" />
           <label htmlFor="start-date">Start Date</label>
-          <input id="start-date" type="text"></input>
+          <DataPicker id="start-date" />
           <fieldset className="address">
             <legend>Address</legend>
             <label htmlFor="street">Street</label>

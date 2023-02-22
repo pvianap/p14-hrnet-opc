@@ -12,3 +12,5 @@ const DataPicker = () => {
     <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} />
   );
 };
+
+export default DataPicker;
