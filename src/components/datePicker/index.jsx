@@ -8,9 +8,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 
 const DataPicker = () => {
   const [startDate, setStartDate] = useState(new Date());
-  return (
-    <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} />
-  );
+  return <DatePicker selected={startDate} id="dateOfBirth" />;
 };
 
 export default DataPicker;
