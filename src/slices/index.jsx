@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import uniqueId from '../helper/uniqueId';
 
 export const employeeSlice = createSlice({
   name: 'employees',
@@ -34,6 +35,10 @@ export const employeeSlice = createSlice({
   },
   reducers: {
     addEmployee: (state, action) => {
+      console.log('State of reducers: ', JSON.stringify(state));
+      action.payload.id = uniqueId(
+        JSON.parse(JSON.stringify(state.employeesList))
+      );
       state.employeesList.push(action.payload);
     },
     deleteEmployee: (state, action) => {

@@ -283,5 +283,15 @@ export default function EmployeeList() {
     prepareRow,
   } = tableInstance;
 
-  return <Table columns={columns} data={data} />;
+  return (
+    <div>
+      <h1
+        className="
+      title"
+      >
+        List of Employees
+      </h1>
+      <Table columns={columns} data={data} />;
+    </div>
+  );
 }
