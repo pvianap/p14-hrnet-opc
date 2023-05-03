@@ -29,9 +29,8 @@ export default function EmployeeForm() {
     state: '',
     zipCode: '',
   });
-
+  console.log('FORM STATE: ', form);
   const handleChange = (event) => {
-    console.log(form);
     const { id, value } = event.target;
     setForm((prevForm) => ({
       ...prevForm,
@@ -40,24 +39,29 @@ export default function EmployeeForm() {
   };
 
   const handleSubmit = (event) => {
-    console.log(form);
     event.preventDefault();
-    form.dateOfBirth = form.dateOfBirth
-      .toLocaleString()
-      .split(' ')
-      .shift();
-    form.startDate = form.startDate
-      .toLocaleString()
-      .split(' ')
-      .shift();
-    dispatch(addEmployee(form));
-    setForm({});
-    navigate('list');
-  };
+    // Check if the department field is filled in
+    const formFields = Object.values(form);
 
-  // const defaultOption = options[0];
-  const _onSelect = (data) => {
-    console.log(data);
+    const isFormValid = formFields.every((field) => field !== '');
+    if (isFormValid) {
+      console.log('Form is valid');
+      form.dateOfBirth = formFields.dateOfBirth
+        .toLocaleString()
+        .split(' ')
+        .shift();
+      form.startDate = form.startDate
+        .toLocaleString()
+        .split(' ')
+        .shift();
+      dispatch(addEmployee(form));
+      setForm({});
+      navigate('list');
+    } else console.log('Form is not valid');
+    // // const defaultOption = options[0];
+    // const _onSelect = (data) => {
+    //   console.log(data);
+    // };
   };
   // const handleSubmit = (event) => {
   //   event.preventDefault();
@@ -153,15 +157,16 @@ export default function EmployeeForm() {
             />
             <label htmlFor="zip-code">Zip Code</label>
             <input
+              required
               id="zipCode"
               type="number"
               value={form.zipCode}
               onChange={handleChange}
-              required
             />
           </fieldset>
           <label htmlFor="department">Department</label>
           <Dropdown
+            required
             id="department"
             options={optionsDepartments}
             onChange={(selectedOption) =>
@@ -170,11 +175,11 @@ export default function EmployeeForm() {
                 department: selectedOption.value,
               }))
             }
-            value={optionsDepartments.find(
-              (option) => option.value === form.department
-            )}
+            // value={optionsDepartments.find(
+            //   (option) => option.value === form.department
+            // )}
+            value={form.department}
             placeholder="Select an option"
-            required
           />
           <button type="submit">Save</button>
         </form>
