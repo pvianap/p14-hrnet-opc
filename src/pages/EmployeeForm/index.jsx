@@ -56,7 +56,7 @@ export default function EmployeeForm() {
         .shift();
       dispatch(addEmployee(form));
       setForm({});
-      navigate('list');
+      // navigate('list');
     } else console.log('Form is not valid');
     // // const defaultOption = options[0];
     // const _onSelect = (data) => {
