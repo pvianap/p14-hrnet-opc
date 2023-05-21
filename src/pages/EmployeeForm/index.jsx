@@ -11,24 +11,27 @@ import { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { useNavigate } from 'react-router-dom';
+import Modal from 'p14-modal-opc';
 
 export default function EmployeeForm() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const optionsStates = data.states;
   const optionsDepartments = cleanData(data.departments);
-  const [form, setForm] = useState({
+  const [showModal, setShowModal] = useState(false);
+  const emptyForm = {
     id: 1,
     firstName: '',
     lastName: '',
-    startDate: '',
+    startDate: null,
     department: '',
     dateOfBirth: '',
     street: '',
     city: '',
     state: '',
     zipCode: '',
-  });
+  };
+  const [form, setForm] = useState(emptyForm);
   console.log('FORM STATE: ', form);
   const handleChange = (event) => {
     const { id, value } = event.target;
@@ -46,22 +49,20 @@ export default function EmployeeForm() {
     const isFormValid = formFields.every((field) => field !== '');
     if (isFormValid) {
       console.log('Form is valid');
-      form.dateOfBirth = formFields.dateOfBirth
-        .toLocaleString()
-        .split(' ')
-        .shift();
-      form.startDate = form.startDate
-        .toLocaleString()
-        .split(' ')
-        .shift();
+      // form.dateOfBirth = formFields.dateOfBirth
+      //   .toLocaleString()
+      //   .split(' ')
+      //   .shift();
+      // form.startDate = form.startDate
+      //   .toLocaleString()
+      //   .split(' ')
+      //   .shift();
       dispatch(addEmployee(form));
-      setForm({});
-      // navigate('list');
+      setForm(emptyForm);
+      setShowModal(true);
+
+      console.log(form);
     } else console.log('Form is not valid');
-    // // const defaultOption = options[0];
-    // const _onSelect = (data) => {
-    //   console.log(data);
-    // };
   };
   // const handleSubmit = (event) => {
   //   event.preventDefault();
@@ -72,6 +73,11 @@ export default function EmployeeForm() {
     <div>
       <div className="title">
         <h1>HRnet</h1>
+        <Modal
+          isOpen={showModal}
+          message={'Employee created!'}
+          closeModal={() => setShowModal(false)}
+        />
       </div>
       <div className="container">
         <form action="#" id="create-employee" onSubmit={handleSubmit}>
@@ -183,10 +189,6 @@ export default function EmployeeForm() {
           />
           <button type="submit">Save</button>
         </form>
-
-        <div id="confirmation" className="modal">
-          Employee Created!
-        </div>
       </div>
     </div>
   );

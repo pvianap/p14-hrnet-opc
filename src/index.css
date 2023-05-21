@@ -111,7 +111,7 @@ form button:hover {
   background-color: #281dbf;
 }
 
-#confirmation {
+/* #confirmation {
   position: fixed;
   top: 50%;
   left: 50%;
@@ -127,7 +127,7 @@ form button:hover {
 
 #confirmation.show {
   display: block;
-}
+} */
 
 .dropdown-menu {
   position: absolute;
