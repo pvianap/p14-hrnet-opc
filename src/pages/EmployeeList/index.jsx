@@ -244,8 +244,34 @@ function Table({ columns, data }) {
 }
 
 export default function EmployeeList() {
-  const data = useSelector((state) => state.employees.employeesList);
+  const source = useSelector((state) => state.employees.employeesList);
 
+  console.log('SOURCE: ', source);
+  //convert data format
+  const data = source.map((item) => {
+    const convertedItem = {
+      ...item,
+      dateOfBirth: new Date(item.dateOfBirth).toLocaleDateString(),
+      startDate: new Date(item.startDate).toLocaleDateString(),
+    };
+    return convertedItem;
+  });
+
+  console.log('CONVERTED DATA: ', data);
+
+  // console.log('SOURCE: ', source);
+  // const data = source.map((item) => {
+  //   const dateOfBirth = new Date(item.dateOfBirth).toLocaleDateString();
+  //   const startDate = new Date(item.startDate).toLocaleDateString();
+
+  //   return {
+  //     ...item,
+  //     dateOfBirth,
+  //     startDate,
+  //   };
+  // });
+
+  // console.log('DATA: ', data);
   const columns = React.useMemo(
     () => [
       {
@@ -275,13 +301,8 @@ export default function EmployeeList() {
 
   const tableInstance = useTable({ columns, data });
 
-  const {
-    getTableProps,
-    getTableBody,
-    headerGroups,
-    rows,
-    prepareRow,
-  } = tableInstance;
+  const { getTableProps, getTableBody, headerGroups, rows, prepareRow } =
+    tableInstance;
 
   return (
     <div>
